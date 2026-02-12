@@ -56,7 +56,7 @@ export default function DeFiDashboard() {
   const [running, setRunning] = useState(true);
   const [pools, setPools] = useState<Pool[]>(INITIAL_POOLS);
   const [frontier, setFrontier] = useState<FrontierPoint[]>([]);
-  const [optimalPoint, setOptimalPoint] = useState<FrontierPoint>({ risk: 0.2, ret: 9.5 });
+  const [optimalPoint] = useState<FrontierPoint>({ risk: 0.2, ret: 9.5 });
   const [currentPoint, setCurrentPoint] = useState<FrontierPoint>({ risk: 0.22, ret: 8.8 });
   const [logs, setLogs] = useState<OptLog[]>([]);
   const [metrics, setMetrics] = useState({

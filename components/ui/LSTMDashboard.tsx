@@ -35,7 +35,7 @@ interface Neuron {
 
 /* ─── constants ─── */
 const ACCENT = '#10B981';
-const ACCENT2 = '#34D399';
+// const ACCENT2 = '#34D399';
 const BG = '#0c1020';
 const CARD = '#111827';
 const BORDER = '#1f2937';
@@ -147,7 +147,7 @@ export default function LSTMDashboard() {
     const isCorrect = Math.random() < accuracyBias;
     const actualDir = isCorrect ? predictedDir : (predictedDir === 'UP' ? 'DOWN' as const : 'UP' as const);
     const actualChange = actualDir === 'UP' ? Math.abs(change) : -Math.abs(change);
-    const predictedPrice = lastPrice + (isCorrect ? actualChange : -actualChange);
+    void actualChange;
 
     const point: PricePoint = {
       time: Date.now(),
@@ -205,7 +205,7 @@ export default function LSTMDashboard() {
     setNeurons(prev =>
       prev.map(layer =>
         layer.map(n => {
-          let act = n.activation + (n.targetActivation - n.activation) * 0.15;
+          const act = n.activation + (n.targetActivation - n.activation) * 0.15;
           const newTarget = Math.random() < 0.05
             ? Math.random()
             : n.targetActivation;
@@ -217,7 +217,6 @@ export default function LSTMDashboard() {
     // heatmap
     setHeatmapData(prev => {
       const rows = prev.length;
-      const cols = prev[0]?.length || 30;
       return prev.map((row, ri) => {
         // shift left, add new column
         const newRow = [...row.slice(1)];

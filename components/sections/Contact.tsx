@@ -80,7 +80,7 @@ export default function Contact() {
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-amber-500 to-purple-600 mx-auto rounded-full" />
           <p className="text-gray-400 mt-6 text-lg">
-            Intéressé par une collaboration? N'hésitez pas à me contacter!
+            Intéressé par une collaboration? N&apos;hésitez pas à me contacter!
           </p>
         </motion.div>
 

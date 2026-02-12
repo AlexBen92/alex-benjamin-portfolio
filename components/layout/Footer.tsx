@@ -25,7 +25,7 @@ export default function Footer() {
 
           {/* Tagline */}
           <p className="text-gray-400 mb-8 max-w-2xl mx-auto">
-            Développeur blockchain passionné, créant des solutions innovantes à l'intersection de la finance décentralisée et du trading haute fréquence.
+            Développeur blockchain passionné, créant des solutions innovantes à l&apos;intersection de la finance décentralisée et du trading haute fréquence.
           </p>
 
           {/* Quick Links */}
