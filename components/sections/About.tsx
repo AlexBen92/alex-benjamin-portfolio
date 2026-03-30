@@ -1,126 +1,125 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { SiRust, SiSolidity, SiTypescript, SiReact } from 'react-icons/si';
-import { FaRocket, FaChartLine, FaNetworkWired } from 'react-icons/fa';
+
+const badgeGroups = [
+  {
+    title: 'Systems & Infra',
+    badges: [
+      { label: 'Rust Expert', variant: 'cyan' as const },
+      { label: 'tokio / async', variant: 'cyan' as const },
+      { label: 'HFT', variant: 'cyan' as const },
+      { label: 'Market Making', variant: 'cyan' as const },
+      { label: 'WebSocket', variant: 'cyan' as const },
+    ],
+  },
+  {
+    title: 'Blockchain & Web3',
+    badges: [
+      { label: 'Solidity Expert', variant: 'vio' as const },
+      { label: 'Solana / Anchor', variant: 'vio' as const },
+      { label: 'Arbitrum Stylus', variant: 'vio' as const },
+      { label: 'ERC-4337', variant: 'vio' as const },
+      { label: 'Foundry', variant: 'vio' as const },
+      { label: 'Hardhat', variant: 'vio' as const },
+    ],
+  },
+  {
+    title: 'AI Agents & Quant',
+    badges: [
+      { label: 'ElizaOS', variant: 'ora' as const },
+      { label: 'LangChain', variant: 'ora' as const },
+      { label: 'OpenAI API', variant: 'ora' as const },
+      { label: 'HMM Regime', variant: 'ora' as const },
+      { label: 'Bi-LSTM', variant: 'ora' as const },
+      { label: 'Monte Carlo', variant: 'ora' as const },
+    ],
+  },
+];
+
+const badgeStyles = {
+  cyan: 'border-[rgba(0,212,255,0.25)] text-cyan bg-[rgba(0,212,255,0.05)]',
+  vio: 'border-[rgba(124,58,237,0.35)] text-[#A78BFA] bg-[rgba(124,58,237,0.08)]',
+  ora: 'border-[rgba(245,158,11,0.3)] text-[#FCD34D] bg-[rgba(245,158,11,0.06)]',
+};
 
 export default function About() {
-  const badges = [
-    { icon: SiRust, label: 'Rust', color: 'from-orange-500 to-red-600' },
-    { icon: SiSolidity, label: 'Solidity', color: 'from-blue-500 to-purple-600' },
-    { icon: SiTypescript, label: 'TypeScript', color: 'from-blue-400 to-blue-600' },
-    { icon: SiReact, label: 'React', color: 'from-cyan-400 to-blue-500' },
-    { icon: FaRocket, label: 'Zero-Latency', color: 'from-amber-500 to-orange-600' },
-    { icon: FaChartLine, label: 'HFT Trading', color: 'from-green-500 to-emerald-600' },
-    { icon: FaNetworkWired, label: 'DeFi', color: 'from-purple-500 to-pink-600' },
-  ];
-
   return (
-    <section id="about" className="relative py-32 px-6">
-      <div className="container mx-auto max-w-6xl">
+    <section id="about" className="relative z-[1] px-6 md:px-12 py-24 max-w-[1200px] mx-auto">
+      <div className="flex flex-col lg:flex-row gap-16 items-start">
+        {/* Left — Terminal */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          transition={{ duration: 0.6 }}
+          className="w-full lg:w-[420px] flex-shrink-0"
         >
-          <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-amber-500 to-purple-600 bg-clip-text text-transparent">
-            À Propos
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-amber-500 to-purple-600 mx-auto rounded-full" />
+          <div className="bg-surf border border-[rgba(0,212,255,0.25)] shadow-[0_0_40px_rgba(0,212,255,0.07)]">
+            <div className="bg-surf2 px-3.5 py-2.5 flex items-center gap-2 border-b border-[rgba(0,212,255,0.12)]">
+              <div className="w-2.5 h-2.5 rounded-full bg-[#FF5F56]" />
+              <div className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E]" />
+              <div className="w-2.5 h-2.5 rounded-full bg-[#27C93F]" />
+              <span className="font-mono text-[11px] text-muted ml-2">about_alex.toml</span>
+            </div>
+            <div className="px-[18px] py-5 font-mono text-xs leading-[2]">
+              <div className="text-cyan">[identity]</div>
+              <div><span className="text-muted">name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span className="text-muted2">=</span><span className="text-txt"> &quot;Alex Benjamin&quot;</span></div>
+              <div><span className="text-muted">location&nbsp;</span><span className="text-muted2">=</span><span className="text-txt"> &quot;Villiers-le-Bel, France&quot;</span></div>
+              <div><span className="text-muted">role&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span className="text-muted2">=</span><span className="text-txt"> &quot;Blockchain Engineer&quot;</span></div>
+              <div><span className="text-muted">github&nbsp;&nbsp;&nbsp;</span><span className="text-muted2">=</span><span className="text-cyan"> &quot;AlexBen92&quot;</span></div>
+              <br />
+              <div className="text-cyan">[stack]</div>
+              <div><span className="text-muted">systems&nbsp;&nbsp;</span><span className="text-muted2">=</span><span className="text-txt"> [&quot;Rust&quot;, &quot;tokio&quot;, &quot;HFT&quot;]</span></div>
+              <div><span className="text-muted">contracts</span><span className="text-muted2">=</span><span className="text-txt"> [&quot;Solidity&quot;, &quot;Anchor&quot;]</span></div>
+              <div><span className="text-muted">l2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span className="text-muted2">=</span><span className="text-txt"> [&quot;Arbitrum Stylus&quot;, &quot;ERC-4337&quot;]</span></div>
+              <div><span className="text-muted">ai&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span className="text-muted2">=</span><span className="text-txt"> [&quot;ElizaOS&quot;, &quot;OpenRouter&quot;]</span></div>
+              <br />
+              <div className="text-cyan">[workflow]</div>
+              <div><span className="text-muted">tools&nbsp;&nbsp;&nbsp;&nbsp;</span><span className="text-muted2">=</span><span className="text-txt"> [&quot;Cursor&quot;, &quot;Claude Code&quot;, &quot;Bolt&quot;]</span></div>
+              <div><span className="text-muted">boost&nbsp;&nbsp;&nbsp;&nbsp;</span><span className="text-muted2">=</span><span className="text-[#22C55E]"> &quot;2-3x delivery speed&quot;</span></div>
+            </div>
+          </div>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          {/* Avatar/Photo */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="flex justify-center"
-          >
-            <div className="relative">
-              <motion.div
-                animate={{
-                  rotate: 360,
-                }}
-                transition={{
-                  duration: 20,
-                  repeat: Infinity,
-                  ease: 'linear',
-                }}
-                className="absolute inset-0 rounded-full bg-gradient-to-r from-amber-500 via-purple-600 to-amber-500 blur-xl opacity-50"
-              />
-              <div className="relative w-80 h-80 rounded-full bg-gradient-to-r from-amber-500 via-purple-600 to-amber-500 p-1">
-                <div className="w-full h-full rounded-full bg-[#1a1f3a] flex items-center justify-center text-8xl font-bold text-gray-300">
-                  AB
-                </div>
+        {/* Right — Content */}
+        <motion.div
+          initial={{ opacity: 0, x: 30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="flex-1"
+        >
+          <div className="font-mono text-[11px] tracking-[0.15em] text-cyan mb-3">About</div>
+          <h2 className="text-[clamp(28px,3vw,38px)] font-extrabold mb-5 leading-[1.15]">
+            Self-taught. Audit-grade.<br />AI-accelerated.
+          </h2>
+          <p className="text-base text-muted leading-[1.75] mb-8">
+            I design execution engines and smart contract architectures for DeFi protocols — built for correctness, speed, and longevity. Self-taught across Rust, Solidity, and Solana/Anchor, with hands-on experience shipping delta-neutral strategies, HFT market makers, and autonomous on-chain AI agents.
+          </p>
+          <p className="text-base text-muted leading-[1.75] mb-8 -mt-3">
+            I run an AI-augmented workflow (Cursor + Claude Code + Bolt) that compresses development cycles by 2–3× while maintaining audit-grade quality — because in DeFi, speed without security is worthless.
+          </p>
+
+          {/* Badge Groups */}
+          {badgeGroups.map((group) => (
+            <div key={group.title} className="mb-5">
+              <div className="font-mono text-[11px] text-muted2 tracking-[0.1em] uppercase mb-2.5">
+                {group.title}
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {group.badges.map((badge) => (
+                  <span
+                    key={badge.label}
+                    className={`font-mono text-xs px-3 py-1 border ${badgeStyles[badge.variant]}`}
+                  >
+                    {badge.label}
+                  </span>
+                ))}
               </div>
             </div>
-          </motion.div>
-
-          {/* Bio */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="space-y-6"
-          >
-            <p className="text-lg text-gray-300 leading-relaxed">
-              Développeur blockchain passionné, spécialisé dans la construction de{' '}
-              <span className="text-amber-500 font-semibold">systèmes ultra-performants</span> en Rust
-              pour le trading haute fréquence.
-            </p>
-
-            <p className="text-lg text-gray-300 leading-relaxed">
-              Expert en <span className="text-purple-500 font-semibold">smart contracts Solidity</span> et
-              architectures DeFi, je conçois des solutions innovantes combinant{' '}
-              <span className="text-amber-500 font-semibold">latence microseconde</span> et sécurité blockchain.
-            </p>
-
-            <div className="space-y-4">
-              <h3 className="text-xl font-semibold text-gray-200">Expertises Clés:</h3>
-              <ul className="space-y-2 text-gray-300">
-                <li className="flex items-center gap-2">
-                  <span className="w-2 h-2 bg-amber-500 rounded-full" />
-                  Systèmes zero-latency avec Rust (tokio, crossbeam, mio)
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-2 h-2 bg-purple-500 rounded-full" />
-                  Smart contracts Solidity optimisés pour gas efficiency
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-2 h-2 bg-amber-500 rounded-full" />
-                  Trading HFT, market-making, et stratégies arbitrage
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-2 h-2 bg-purple-500 rounded-full" />
-                  Protocoles DeFi: AMM, lending, staking, yield farming
-                </li>
-              </ul>
-            </div>
-
-            {/* Badges */}
-            <div className="flex flex-wrap gap-3 pt-6">
-              {badges.map((badge, index) => (
-                <motion.div
-                  key={badge.label}
-                  initial={{ opacity: 0, scale: 0 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  className={`px-4 py-2 rounded-full bg-gradient-to-r ${badge.color} text-white font-semibold text-sm flex items-center gap-2 shadow-lg cursor-pointer`}
-                >
-                  <badge.icon size={18} />
-                  {badge.label}
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );

@@ -12,14 +12,9 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
-      animation: {
-        gradient: "gradient 3s ease infinite",
-      },
-      keyframes: {
-        gradient: {
-          "0%, 100%": { backgroundPosition: "0% 50%" },
-          "50%": { backgroundPosition: "100% 50%" },
-        },
+      fontFamily: {
+        sans: ['var(--font-syne)', 'Syne', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-jetbrains)', 'JetBrains Mono', 'monospace'],
       },
     },
   },

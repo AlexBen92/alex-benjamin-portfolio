@@ -2,86 +2,108 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { projects } from '@/lib/projects';
+
+const ProjectScanPlayer = dynamic(
+  () => import('@/components/players/ProjectScanPlayer'),
+  {
+    ssr: false,
+    loading: () => <div className="w-full h-[60px]" />,
+  }
+);
+
+const categoryStyles: Record<string, string> = {
+  'cat-rust': 'bg-[rgba(245,158,11,0.08)] border-[rgba(245,158,11,0.25)] text-[#FCD34D]',
+  'cat-sol': 'bg-[rgba(124,58,237,0.08)] border-[rgba(124,58,237,0.3)] text-[#A78BFA]',
+  'cat-ai': 'bg-[rgba(34,197,94,0.06)] border-[rgba(34,197,94,0.2)] text-[#4ADE80]',
+};
 
 export default function Portfolio() {
   return (
-    <section id="portfolio" className="relative py-32 px-6 bg-[#0a0e27]/50">
-      <div className="container mx-auto max-w-7xl">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-amber-500 to-purple-600 bg-clip-text text-transparent">
-            Projets
-          </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto mt-4">
-            Systèmes quantitatifs, trading algorithmique et recherche DeFi
-          </p>
-          <div className="w-24 h-1 bg-gradient-to-r from-amber-500 to-purple-600 mx-auto rounded-full mt-4" />
-        </motion.div>
+    <section id="projects" className="relative z-[1] px-6 md:px-12 py-24 max-w-[1200px] mx-auto">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="mb-4"
+      >
+        <div className="font-mono text-[11px] tracking-[0.15em] text-cyan mb-3">Selected Work</div>
+        <h2 className="text-[clamp(28px,3vw,38px)] font-extrabold mb-2 leading-[1.15]">
+          6 projects — filtered by impact
+        </h2>
+      </motion.div>
 
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.slug}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.15, duration: 0.6 }}
-              whileHover={{ y: -8, scale: 1.02 }}
+      {/* Remotion scan animation */}
+      <div className="mb-8">
+        <ProjectScanPlayer />
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {projects.map((project, index) => (
+          <motion.div
+            key={project.slug}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: index * 0.1, duration: 0.5 }}
+          >
+            <Link
+              href={`/project/${project.slug}`}
+              className="group block bg-surf border border-[rgba(0,212,255,0.12)] p-7 relative transition-all duration-300 hover:-translate-y-1 hover:border-[rgba(0,212,255,0.35)] hover:shadow-[0_8px_32px_rgba(0,212,255,0.07)] h-full"
             >
-              <Link
-                href={`/project/${project.slug}`}
-                className={`group block bg-[#1a1f3a] rounded-xl p-6 border border-gray-700 hover:border-amber-500/70 transition-all duration-300 shadow-xl hover:shadow-2xl relative overflow-hidden h-full`}
-              >
-                {/* Glow */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
+              {/* Top row */}
+              <div className="flex justify-between items-start mb-4">
+                <span className={`font-mono text-[10px] px-2.5 py-0.5 tracking-[0.1em] border ${categoryStyles[project.categoryStyle] || ''}`}>
+                  {project.category}
+                </span>
+                <span className="font-mono text-[10px] flex items-center gap-1.5">
+                  <span className={`w-1.5 h-1.5 rounded-full ${
+                    project.status === 'live'
+                      ? 'bg-[#22C55E] shadow-[0_0_6px_#22C55E]'
+                      : 'bg-ora'
+                  }`} />
+                  <span className={project.status === 'live' ? 'text-[#4ADE80]' : 'text-ora'}>
+                    {project.statusLabel}
+                  </span>
+                </span>
+              </div>
 
-                <div className="relative z-10">
-                  <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${project.color} flex items-center justify-center mb-5 shadow-lg group-hover:shadow-xl transition-shadow duration-300`}>
-                    <span className="text-3xl">{project.icon}</span>
-                  </div>
+              {/* Title */}
+              <h3 className="text-[17px] font-bold mb-2.5 leading-[1.3] group-hover:text-cyan transition-colors duration-200">
+                {project.title}
+              </h3>
 
-                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-amber-400 transition-colors duration-300">
-                    {project.shortTitle}
-                  </h3>
+              {/* Description */}
+              <p className="text-[13px] text-muted leading-[1.65] mb-4">
+                {project.shortDescription}
+              </p>
 
-                  <p className="text-gray-400 text-sm mb-4 leading-relaxed">
-                    {project.shortDescription}
-                  </p>
+              {/* Stack pills */}
+              <div className="flex flex-wrap gap-1.5 mb-4">
+                {project.stackPills.map((pill) => (
+                  <span
+                    key={pill}
+                    className="font-mono text-[11px] px-2 py-0.5 bg-surf2 border border-[rgba(255,255,255,0.06)] text-muted"
+                  >
+                    {pill}
+                  </span>
+                ))}
+              </div>
 
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tags.slice(0, 4).map((tag, i) => (
-                      <span
-                        key={tag}
-                        className={`px-2.5 py-1 ${project.tagColors[i] || 'bg-gray-700/50 text-gray-300'} text-xs rounded-full font-medium backdrop-blur-sm`}
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                    {project.tags.length > 4 && (
-                      <span className="px-2.5 py-1 bg-gray-700/50 text-gray-400 text-xs rounded-full font-medium">
-                        +{project.tags.length - 4}
-                      </span>
-                    )}
-                  </div>
-
-                  <div className="pt-4 border-t border-gray-700/50">
-                    <span className="text-amber-500/70 text-sm font-medium group-hover:text-amber-400 transition-colors duration-300 flex items-center gap-2">
-                      Voir le détail →
-                    </span>
-                  </div>
+              {/* Bottom */}
+              <div className="flex justify-between items-center border-t border-[rgba(255,255,255,0.04)] pt-3.5">
+                <span className="font-mono text-[11px] text-cyan">{project.metric}</span>
+                <div className="flex gap-4">
+                  <span className="font-mono text-[11px] text-muted group-hover:text-cyan transition-colors duration-200">
+                    View Detail →
+                  </span>
                 </div>
-              </Link>
-            </motion.div>
-          ))}
-        </div>
+              </div>
+            </Link>
+          </motion.div>
+        ))}
       </div>
     </section>
   );

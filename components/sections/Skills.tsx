@@ -1,127 +1,116 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState } from 'react';
 
-interface Skill {
+interface SkillItem {
   name: string;
-  level: number;
-  color: string;
+  level: number; // out of 5
+}
+
+interface SkillColumn {
+  title: string;
+  colorClass: string;
+  dotColor: string;
+  skills: SkillItem[];
+}
+
+const columns: SkillColumn[] = [
+  {
+    title: 'Systems & Backend',
+    colorClass: 'text-cyan',
+    dotColor: 'bg-cyan',
+    skills: [
+      { name: 'Rust (tokio, async)', level: 5 },
+      { name: 'HFT / Market Making', level: 4 },
+      { name: 'WebSocket / Streams', level: 4 },
+      { name: 'Next.js / React', level: 4 },
+      { name: 'PHP / SQL (ERP)', level: 3 },
+      { name: 'Cursor / Claude Code', level: 5 },
+    ],
+  },
+  {
+    title: 'Blockchain & Web3',
+    colorClass: 'text-[#A78BFA]',
+    dotColor: 'bg-[#A78BFA]',
+    skills: [
+      { name: 'Solidity / Foundry', level: 5 },
+      { name: 'Solana / Anchor', level: 4 },
+      { name: 'Arbitrum Stylus', level: 3 },
+      { name: 'ERC-4337 / AA', level: 4 },
+      { name: 'DeFi Protocols (AMM, Vault)', level: 4 },
+      { name: 'Cross-chain / CCIP', level: 3 },
+    ],
+  },
+  {
+    title: 'AI Agents & Quant',
+    colorClass: 'text-[#FCD34D]',
+    dotColor: 'bg-[#FCD34D]',
+    skills: [
+      { name: 'ElizaOS / LangChain', level: 4 },
+      { name: 'OpenAI API', level: 5 },
+      { name: 'OpenRouter (free models)', level: 4 },
+      { name: 'HMM Regime Detection', level: 3 },
+      { name: 'Bi-LSTM / Monte Carlo', level: 3 },
+      { name: 'Bolt / v0 / Lovable', level: 4 },
+    ],
+  },
+];
+
+function SkillDots({ level, dotColor }: { level: number; dotColor: string }) {
+  return (
+    <div className="flex gap-[3px]">
+      {[1, 2, 3, 4, 5].map((i) => (
+        <div
+          key={i}
+          className={`w-1.5 h-1.5 rounded-full ${
+            i <= level ? dotColor : 'bg-[rgba(255,255,255,0.1)]'
+          }`}
+        />
+      ))}
+    </div>
+  );
 }
 
 export default function Skills() {
-  const [isVisible, setIsVisible] = useState(false);
-
-  const skills: Skill[] = [
-    { name: 'Rust', level: 95, color: 'from-orange-500 to-red-600' },
-    { name: 'Solidity', level: 90, color: 'from-blue-500 to-purple-600' },
-    { name: 'TypeScript / React', level: 85, color: 'from-blue-400 to-cyan-500' },
-    { name: 'Smart Contracts', level: 90, color: 'from-purple-500 to-pink-600' },
-    { name: 'Trading Systems', level: 95, color: 'from-amber-500 to-orange-600' },
-    { name: 'DeFi Protocols', level: 88, color: 'from-green-500 to-emerald-600' },
-  ];
-
   return (
-    <section id="skills" className="relative py-32 px-6">
-      <div className="container mx-auto max-w-5xl">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          onViewportEnter={() => setIsVisible(true)}
-          className="text-center mb-16"
-        >
-          <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-amber-500 to-purple-600 bg-clip-text text-transparent">
-            Compétences
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-amber-500 to-purple-600 mx-auto rounded-full" />
-        </motion.div>
+    <section id="skills" className="relative z-[1] px-6 md:px-12 py-24 max-w-[1200px] mx-auto">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="mb-12"
+      >
+        <div className="font-mono text-[11px] tracking-[0.15em] text-cyan mb-3">Technical Skills</div>
+        <h2 className="text-[clamp(28px,3vw,38px)] font-extrabold leading-[1.15]">
+          No progress bars. Honest levels.
+        </h2>
+      </motion.div>
 
-        <div className="space-y-8">
-          {skills.map((skill, index) => (
-            <motion.div
-              key={skill.name}
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="relative"
-            >
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-xl font-semibold text-white">{skill.name}</span>
-                <motion.span
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: isVisible ? 1 : 0 }}
-                  transition={{ delay: index * 0.1 + 0.5 }}
-                  className="text-lg font-bold bg-gradient-to-r from-amber-500 to-purple-600 bg-clip-text text-transparent"
-                >
-                  {skill.level}%
-                </motion.span>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {columns.map((col, colIdx) => (
+          <motion.div
+            key={col.title}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: colIdx * 0.1, duration: 0.5 }}
+            className="bg-surf border border-[rgba(0,212,255,0.12)] p-7"
+          >
+            <div className={`font-mono text-xs tracking-[0.1em] uppercase mb-5 pb-3 border-b border-[rgba(255,255,255,0.06)] ${col.colorClass}`}>
+              {col.title}
+            </div>
+            {col.skills.map((skill) => (
+              <div
+                key={skill.name}
+                className="flex justify-between items-center py-2 border-b border-[rgba(255,255,255,0.03)]"
+              >
+                <span className="text-[13px] text-txt">{skill.name}</span>
+                <SkillDots level={skill.level} dotColor={col.dotColor} />
               </div>
-
-              <div className="relative h-4 bg-gray-800 rounded-full overflow-hidden">
-                <motion.div
-                  initial={{ width: 0 }}
-                  animate={{ width: isVisible ? `${skill.level}%` : 0 }}
-                  transition={{ delay: index * 0.1 + 0.3, duration: 1, ease: 'easeOut' }}
-                  className={`h-full bg-gradient-to-r ${skill.color} rounded-full relative`}
-                >
-                  <motion.div
-                    animate={{
-                      x: ['-100%', '100%'],
-                    }}
-                    transition={{
-                      repeat: Infinity,
-                      duration: 2,
-                      ease: 'linear',
-                    }}
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-                  />
-                </motion.div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Additional Tech Stack */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
-          className="mt-16 grid md:grid-cols-3 gap-6"
-        >
-          <div className="bg-[#1a1f3a] rounded-xl p-6 border border-gray-700">
-            <h3 className="text-xl font-bold text-amber-500 mb-4">Backend</h3>
-            <ul className="space-y-2 text-gray-300">
-              <li>• Rust (tokio, async/await)</li>
-              <li>• Node.js / Express</li>
-              <li>• PostgreSQL / MongoDB</li>
-              <li>• Redis / RabbitMQ</li>
-            </ul>
-          </div>
-
-          <div className="bg-[#1a1f3a] rounded-xl p-6 border border-gray-700">
-            <h3 className="text-xl font-bold text-purple-500 mb-4">Blockchain</h3>
-            <ul className="space-y-2 text-gray-300">
-              <li>• Solana / Anchor</li>
-              <li>• Ethereum / Hardhat</li>
-              <li>• Web3.js / ethers.js</li>
-              <li>• IPFS / The Graph</li>
-            </ul>
-          </div>
-
-          <div className="bg-[#1a1f3a] rounded-xl p-6 border border-gray-700">
-            <h3 className="text-xl font-bold text-cyan-500 mb-4">Trading</h3>
-            <ul className="space-y-2 text-gray-300">
-              <li>• HFT / Market Making</li>
-              <li>• FIX Protocol</li>
-              <li>• WebSocket / UDP</li>
-              <li>• DPDK / DMA</li>
-            </ul>
-          </div>
-        </motion.div>
+            ))}
+          </motion.div>
+        ))}
       </div>
     </section>
   );

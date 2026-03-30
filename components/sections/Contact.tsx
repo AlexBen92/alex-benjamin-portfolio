@@ -1,233 +1,141 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useForm } from 'react-hook-form';
-import { FaEnvelope, FaPhone, FaLinkedin, FaGithub, FaTelegram } from 'react-icons/fa';
-import { SiDiscord } from 'react-icons/si';
-
-interface FormData {
-  name: string;
-  email: string;
-  message: string;
-}
+import { useState } from 'react';
 
 export default function Contact() {
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>();
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
 
-  const onSubmit = async (data: FormData) => {
-    console.log('Form submitted:', data);
-    // TODO: Implement email sending logic
-    alert('Message envoyé! Je vous répondrai bientôt.');
-    reset();
+  const handleSubmit = () => {
+    if (!name || !email || !message) {
+      alert('Please fill all fields.');
+      return;
+    }
+    window.location.href = `mailto:Aleex.b95@gmail.com?subject=Mission inquiry from ${encodeURIComponent(name)}&body=${encodeURIComponent(message)}%0A%0A${encodeURIComponent(email)}`;
   };
 
-  const contactInfo = [
-    {
-      icon: FaEnvelope,
-      label: 'Email',
-      value: 'aleex.b95@gmail.com',
-      href: 'mailto:aleex.b95@gmail.com',
-      color: 'from-amber-500 to-orange-600',
-    },
-    {
-      icon: FaPhone,
-      label: 'Téléphone',
-      value: '06-62-03-90-64',
-      href: 'tel:+33662039064',
-      color: 'from-purple-500 to-violet-600',
-    },
-  ];
-
-  const socialLinks = [
-    {
-      icon: FaLinkedin,
-      label: 'LinkedIn',
-      href: '#',
-      color: 'hover:text-blue-500',
-    },
-    {
-      icon: FaGithub,
-      label: 'GitHub',
-      href: '#',
-      color: 'hover:text-gray-400',
-    },
-    {
-      icon: FaTelegram,
-      label: 'Telegram',
-      href: '#',
-      color: 'hover:text-blue-400',
-    },
-    {
-      icon: SiDiscord,
-      label: 'Discord',
-      href: '#',
-      color: 'hover:text-indigo-500',
-    },
-  ];
-
   return (
-    <section id="contact" className="relative py-32 px-6">
-      <div className="container mx-auto max-w-6xl">
+    <section id="contact" className="relative z-[1] px-6 md:px-12 py-24 max-w-[1200px] mx-auto">
+      {/* Availability banner */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        className="bg-[rgba(34,197,94,0.06)] border border-[rgba(34,197,94,0.2)] px-6 py-3.5 flex items-center gap-3 mb-14"
+      >
+        <div className="w-2 h-2 rounded-full bg-[#22C55E] shadow-[0_0_8px_#22C55E] pulse-dot" />
+        <span className="font-mono text-[13px] text-[#4ADE80]">
+          Available for freelance missions & remote contracts — Typical reply: &lt; 24h
+        </span>
+      </motion.div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+        {/* Left */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          transition={{ duration: 0.6 }}
         >
-          <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-amber-500 to-purple-600 bg-clip-text text-transparent">
-            Contact
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-amber-500 to-purple-600 mx-auto rounded-full" />
-          <p className="text-gray-400 mt-6 text-lg">
-            Intéressé par une collaboration? N&apos;hésitez pas à me contacter!
+          <div className="font-mono text-[11px] tracking-[0.15em] text-cyan mb-3">Contact</div>
+          <h3 className="text-[22px] font-bold mb-2">
+            Let&apos;s build something<br />on-chain.
+          </h3>
+
+          <a
+            href="mailto:Aleex.b95@gmail.com"
+            className="block font-mono text-base text-cyan my-5 hover:opacity-75 transition-opacity duration-200"
+          >
+            Aleex.b95@gmail.com
+          </a>
+
+          <div className="flex flex-wrap gap-3 mb-6">
+            {[
+              { label: 'GitHub ↗', href: 'https://github.com/AlexBen92' },
+              { label: 'Portfolio ↗', href: 'https://alex-benjamin-portfolio.vercel.app' },
+              { label: 'LinkedIn ↗', href: 'https://www.linkedin.com' },
+              { label: 'X / Twitter ↗', href: 'https://twitter.com' },
+            ].map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-mono text-xs px-4 py-2 border border-[rgba(0,212,255,0.12)] text-muted tracking-[0.05em] hover:border-[rgba(0,212,255,0.35)] hover:text-cyan hover:bg-[rgba(0,212,255,0.12)] transition-all duration-200"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+
+          <p className="font-mono text-xs text-muted2">
+            Based in Paris region — Remote worldwide · 800 €/day
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12">
-          {/* Contact Info */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="space-y-8"
-          >
-            <h3 className="text-3xl font-bold text-white mb-6">Informations de Contact</h3>
-
-            {contactInfo.map((info, index) => (
-              <motion.a
-                key={info.label}
-                href={info.href}
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ scale: 1.05, x: 10 }}
-                className="flex items-center gap-4 p-4 bg-[#1a1f3a] rounded-lg border border-gray-700 hover:border-amber-500 transition-all duration-300 group"
-              >
-                <div className={`w-14 h-14 rounded-lg bg-gradient-to-r ${info.color} flex items-center justify-center flex-shrink-0`}>
-                  <info.icon size={24} className="text-white" />
-                </div>
-                <div>
-                  <p className="text-gray-400 text-sm">{info.label}</p>
-                  <p className="text-white font-semibold text-lg group-hover:text-amber-500 transition-colors">
-                    {info.value}
-                  </p>
-                </div>
-              </motion.a>
-            ))}
-
-            {/* Social Links */}
-            <div className="pt-8">
-              <h4 className="text-xl font-semibold text-white mb-4">Réseaux Sociaux</h4>
-              <div className="flex gap-4">
-                {socialLinks.map((social, index) => (
-                  <motion.a
-                    key={social.label}
-                    href={social.href}
-                    initial={{ opacity: 0, scale: 0 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    whileHover={{ scale: 1.2, rotate: 5 }}
-                    className={`w-12 h-12 rounded-lg bg-[#1a1f3a] border border-gray-700 flex items-center justify-center text-gray-400 ${social.color} transition-all duration-300`}
-                    aria-label={social.label}
-                  >
-                    <social.icon size={24} />
-                  </motion.a>
-                ))}
-              </div>
+        {/* Right — Terminal form */}
+        <motion.div
+          initial={{ opacity: 0, x: 30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="bg-surf border border-[rgba(0,212,255,0.25)]">
+            {/* Terminal bar */}
+            <div className="bg-surf2 px-3.5 py-2.5 flex items-center gap-2 border-b border-[rgba(0,212,255,0.12)]">
+              <div className="w-2.5 h-2.5 rounded-full bg-[#FF5F56]" />
+              <div className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E]" />
+              <div className="w-2.5 h-2.5 rounded-full bg-[#27C93F]" />
+              <span className="font-mono text-[11px] text-muted ml-2">send_message.sh</span>
             </div>
 
-            {/* Availability */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.5 }}
-              className="p-6 bg-gradient-to-r from-amber-500/10 to-purple-600/10 border border-amber-500/30 rounded-lg"
-            >
-              <p className="text-white font-semibold mb-2">Disponibilité</p>
-              <p className="text-gray-300">
-                Ouvert aux opportunités freelance et collaborations sur des projets blockchain innovants.
-              </p>
-            </motion.div>
-          </motion.div>
-
-          {/* Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-              <div>
-                <label htmlFor="name" className="block text-white font-semibold mb-2">
-                  Nom
-                </label>
+            {/* Form body */}
+            <div className="p-5">
+              <div className="flex items-center gap-3 py-2.5 border-b border-[rgba(0,212,255,0.06)]">
+                <span className="font-mono text-[13px] text-cyan whitespace-nowrap">&gt; name_</span>
                 <input
-                  id="name"
                   type="text"
-                  {...register('name', { required: 'Le nom est requis' })}
-                  className="w-full px-4 py-3 bg-[#1a1f3a] border border-gray-700 rounded-lg text-white focus:border-amber-500 focus:outline-none transition-colors"
-                  placeholder="Votre nom"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Your name"
+                  className="flex-1 bg-transparent border-none outline-none font-mono text-[13px] text-txt placeholder:text-muted2"
                 />
-                {errors.name && (
-                  <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
-                )}
               </div>
 
-              <div>
-                <label htmlFor="email" className="block text-white font-semibold mb-2">
-                  Email
-                </label>
+              <div className="flex items-center gap-3 py-2.5 border-b border-[rgba(0,212,255,0.06)]">
+                <span className="font-mono text-[13px] text-cyan whitespace-nowrap">&gt; email_</span>
                 <input
-                  id="email"
                   type="email"
-                  {...register('email', {
-                    required: 'L\'email est requis',
-                    pattern: {
-                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                      message: 'Email invalide',
-                    },
-                  })}
-                  className="w-full px-4 py-3 bg-[#1a1f3a] border border-gray-700 rounded-lg text-white focus:border-amber-500 focus:outline-none transition-colors"
-                  placeholder="votre@email.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="your@email.com"
+                  className="flex-1 bg-transparent border-none outline-none font-mono text-[13px] text-txt placeholder:text-muted2"
                 />
-                {errors.email && (
-                  <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
-                )}
               </div>
 
-              <div>
-                <label htmlFor="message" className="block text-white font-semibold mb-2">
-                  Message
-                </label>
+              <div className="flex items-start gap-3 py-2.5">
+                <span className="font-mono text-[13px] text-cyan whitespace-nowrap pt-0.5">&gt; message_</span>
                 <textarea
-                  id="message"
-                  rows={6}
-                  {...register('message', { required: 'Le message est requis' })}
-                  className="w-full px-4 py-3 bg-[#1a1f3a] border border-gray-700 rounded-lg text-white focus:border-amber-500 focus:outline-none transition-colors resize-none"
-                  placeholder="Votre message..."
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  placeholder="Your message..."
+                  rows={3}
+                  className="flex-1 bg-transparent border-none outline-none font-mono text-[13px] text-txt resize-none placeholder:text-muted2"
                 />
-                {errors.message && (
-                  <p className="text-red-500 text-sm mt-1">{errors.message.message}</p>
-                )}
               </div>
 
-              <motion.button
-                type="submit"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="w-full px-8 py-4 bg-gradient-to-r from-amber-500 to-purple-600 text-white rounded-lg font-semibold text-lg shadow-lg shadow-amber-500/50 hover:shadow-amber-500/70 transition-all duration-300"
+              <button
+                onClick={handleSubmit}
+                className="mt-4 w-full bg-transparent border border-[rgba(0,212,255,0.25)] font-mono text-[13px] text-cyan py-3 tracking-[0.05em] hover:bg-[rgba(0,212,255,0.08)] hover:border-cyan transition-all duration-200 cursor-pointer"
               >
-                Envoyer le Message
-              </motion.button>
-            </form>
-          </motion.div>
-        </div>
+                [ send_message.sh --execute ]
+              </button>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

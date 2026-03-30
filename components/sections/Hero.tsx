@@ -1,126 +1,95 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
+
+const HeroTerminalPlayer = dynamic(
+  () => import('@/components/players/HeroTerminalPlayer'),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-[280px] bg-surf border border-[rgba(0,212,255,0.25)] animate-pulse" />
+    ),
+  }
+);
 
 export default function Hero() {
-  const [text, setText] = useState('');
-  const fullText = 'Rust Blockchain Developer | Trading & DeFi Expert';
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    if (index < fullText.length) {
-      const timeout = setTimeout(() => {
-        setText((prev) => prev + fullText[index]);
-        setIndex(index + 1);
-      }, 50);
-      return () => clearTimeout(timeout);
-    }
-  }, [index]);
-
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    element?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
     <section
-      id="home"
-      className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden"
+      id="hero"
+      className="relative z-[1] min-h-screen flex items-center px-6 md:px-12 pt-[120px] pb-20 gap-16"
     >
-      {/* Animated Background Code */}
-      <div className="absolute inset-0 opacity-10 overflow-hidden">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 2 }}
-          className="font-mono text-xs text-amber-500 whitespace-pre leading-relaxed"
-        >
-          {`fn execute_trade(order: &Order) -> Result<Trade, Error> {
-    let latency = measure_latency();
-    if latency < 10 { // microseconds
-        process_order_dpdk(order)?;
-        Ok(Trade::new(order))
-    }
-}
-
-impl AmmPool {
-    pub fn swap(&mut self, amount: u64) -> u64 {
-        // Constant product formula
-        let k = self.reserve_x * self.reserve_y;
-        self.reserve_x += amount;
-        self.reserve_y = k / self.reserve_x;
-    }
-}`}
-        </motion.div>
-      </div>
-
-      <div className="relative z-10 max-w-5xl mx-auto text-center">
-        {/* Main Title */}
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-6xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-amber-500 via-purple-600 to-amber-500 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient"
-        >
-          Alex Benjamin
-        </motion.h1>
-
-        {/* Typewriter Tagline */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5, duration: 1 }}
-          className="min-h-[80px] mb-12"
-        >
-          <p className="text-2xl md:text-3xl text-gray-300 font-light">
-            {text}
-            <span className="animate-pulse">|</span>
-          </p>
-        </motion.div>
-
-        {/* CTA Buttons */}
+      {/* Left side */}
+      <div className="flex-1 max-w-[600px]">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1, duration: 0.8 }}
-          className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+          transition={{ duration: 0.6 }}
+          className="inline-block font-mono text-[11px] tracking-[0.15em] text-cyan border border-[rgba(0,212,255,0.2)] px-3.5 py-1.5 mb-8 bg-[rgba(0,212,255,0.04)]"
         >
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => scrollToSection('portfolio')}
-            className="px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-600 text-white rounded-lg font-semibold text-lg shadow-lg shadow-amber-500/50 hover:shadow-amber-500/70 transition-all duration-300"
-          >
-            Voir Portfolio
-          </motion.button>
-
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => scrollToSection('contact')}
-            className="px-8 py-4 bg-gradient-to-r from-purple-600 to-violet-700 text-white rounded-lg font-semibold text-lg shadow-lg shadow-purple-500/50 hover:shadow-purple-500/70 transition-all duration-300"
-          >
-            Contact Direct
-          </motion.button>
+          [ RUST · SOLIDITY · SOLANA · AI AGENTS ]
         </motion.div>
 
-        {/* Scroll Indicator */}
-        <motion.div
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.1 }}
+          className="text-[clamp(36px,4.5vw,56px)] font-extrabold leading-[1.1] mb-6 text-txt"
+        >
+          I build DeFi infrastructure<br />that runs in{' '}
+          <span className="text-cyan relative underline decoration-[rgba(0,212,255,0.4)] underline-offset-[6px]">
+            microseconds.
+          </span>
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="text-[17px] text-muted leading-relaxed mb-4"
+        >
+          Smart contracts, HFT trading systems and autonomous AI agents — available for freelance missions and remote contracts.
+        </motion.p>
+
+        <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 2, duration: 1 }}
-          className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="font-mono text-xs text-muted2 mb-10"
         >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ repeat: Infinity, duration: 2 }}
-            className="w-6 h-10 border-2 border-amber-500 rounded-full flex items-start justify-center p-2"
+          — Alex Benjamin, Paris · github.com/AlexBen92
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="flex items-center gap-6"
+        >
+          <a
+            href="#projects"
+            className="inline-block px-8 py-3.5 bg-cyan text-[#080C14] font-mono text-[13px] font-bold tracking-[0.05em] hover:bg-[#00b8e0] hover:-translate-y-0.5 transition-all duration-200"
           >
-            <motion.div className="w-1 h-2 bg-amber-500 rounded-full" />
-          </motion.div>
+            View Projects →
+          </a>
+          <a
+            href="#contact"
+            className="font-mono text-[13px] text-muted border-b border-transparent hover:text-cyan hover:border-[rgba(0,212,255,0.4)] transition-all duration-200"
+          >
+            Download CV ↗
+          </a>
         </motion.div>
       </div>
+
+      {/* Right side — Remotion animated terminal */}
+      <motion.div
+        initial={{ opacity: 0, x: 40 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8, delay: 0.3 }}
+        className="hidden lg:block flex-shrink-0 w-[520px]"
+      >
+        <HeroTerminalPlayer />
+      </motion.div>
     </section>
   );
 }

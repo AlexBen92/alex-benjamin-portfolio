@@ -1,71 +1,41 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { FaHeart } from 'react-icons/fa';
-
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
-    <footer className="relative py-12 px-6 bg-[#0a0e27] border-t border-gray-800">
-      <div className="container mx-auto max-w-6xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center"
+    <footer className="border-t border-[rgba(0,212,255,0.12)] px-6 md:px-12 py-5 flex flex-col md:flex-row items-center justify-between gap-3">
+      <span className="font-mono text-xs text-muted2">
+        © 2026 Alex Benjamin
+      </span>
+      <span className="font-mono text-xs text-muted">
+        Open to DeFi, AI agent & Rust infrastructure missions
+      </span>
+      <div className="flex gap-5">
+        <a
+          href="https://github.com/AlexBen92"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-mono text-xs text-muted hover:text-cyan transition-colors duration-200"
         >
-          {/* Logo */}
-          <motion.div
-            whileHover={{ scale: 1.1 }}
-            className="inline-block text-3xl font-bold bg-gradient-to-r from-amber-500 to-purple-600 bg-clip-text text-transparent mb-6"
-          >
-            AB
-          </motion.div>
-
-          {/* Tagline */}
-          <p className="text-gray-400 mb-8 max-w-2xl mx-auto">
-            Développeur blockchain passionné, créant des solutions innovantes à l&apos;intersection de la finance décentralisée et du trading haute fréquence.
-          </p>
-
-          {/* Quick Links */}
-          <div className="flex flex-wrap justify-center gap-6 mb-8">
-            {['Home', 'Portfolio', 'Skills', 'Contact'].map((item) => (
-              <button
-                key={item}
-                onClick={() => {
-                  const element = document.getElementById(item.toLowerCase());
-                  element?.scrollIntoView({ behavior: 'smooth' });
-                }}
-                className="text-gray-400 hover:text-amber-500 transition-colors duration-300"
-              >
-                {item}
-              </button>
-            ))}
-          </div>
-
-          {/* Copyright */}
-          <div className="pt-8 border-t border-gray-800">
-            <p className="text-gray-500 flex items-center justify-center gap-2 flex-wrap">
-              <span>© {currentYear} Alex Benjamin. Tous droits réservés.</span>
-              <span className="hidden sm:inline">|</span>
-              <span className="flex items-center gap-1">
-                Fait avec <FaHeart className="text-red-500 animate-pulse" /> et Rust
-              </span>
-            </p>
-          </div>
-
-          {/* Tech Stack Badge */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
-            className="mt-6 text-xs text-gray-600"
-          >
-            Built with Next.js, TypeScript, Tailwind CSS & Framer Motion
-          </motion.div>
-        </motion.div>
+          GitHub
+        </a>
+        <a
+          href="https://alex-benjamin-portfolio.vercel.app"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-mono text-xs text-muted hover:text-cyan transition-colors duration-200"
+        >
+          Portfolio
+        </a>
+        <button
+          onClick={() => scrollTo('hero')}
+          className="font-mono text-xs text-muted hover:text-cyan transition-colors duration-200"
+        >
+          Top ↑
+        </button>
       </div>
     </footer>
   );
