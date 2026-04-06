@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   description: "Blockchain Engineer specializing in Rust, Solidity, Solana, and AI Agents. Expert in HFT trading systems, smart contracts, and DeFi protocols. Available for freelance missions.",
   keywords: ["Blockchain Engineer", "Rust Developer", "Solidity Developer", "Solana Development", "DeFi", "HFT Trading", "Smart Contracts", "AI Agents", "Web3", "Cryptocurrency", "Arbitrum", "ERC-4337", "Anchor Framework"],
   authors: [{ name: "Alex Benjamin", url: "https://github.com/AlexBen92" }],
-  creators: ["Alex Benjamin"],
+  creator: "Alex Benjamin",
   publisher: "Alex Benjamin",
   formatDetection: {
     email: false,
