@@ -73,7 +73,8 @@ export default function Hero() {
             View Projects →
           </a>
           <a
-            href="#contact"
+            href="/alex-benjamin-cv.pdf"
+            download
             className="font-mono text-[13px] text-muted border-b border-transparent hover:text-cyan hover:border-[rgba(0,212,255,0.4)] transition-all duration-200"
           >
             Download CV ↗
