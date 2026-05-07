@@ -31,7 +31,7 @@ export default function Portfolio() {
       >
         <div className="font-mono text-[11px] tracking-[0.15em] text-cyan mb-3">Selected Work</div>
         <h2 className="text-[clamp(28px,3vw,38px)] font-extrabold mb-2 leading-[1.15]">
-          6 projects — filtered by impact
+          8 projects — filtered by impact
         </h2>
       </motion.div>
 
@@ -50,7 +50,8 @@ export default function Portfolio() {
             transition={{ delay: index * 0.1, duration: 0.5 }}
           >
             <Link
-              href={`/project/${project.slug}`}
+              href={project.externalLink || `/project/${project.slug}`}
+              {...(project.externalLink && { target: '_blank', rel: 'noopener noreferrer' })}
               className="group block bg-surf border border-[rgba(0,212,255,0.12)] p-7 relative transition-all duration-300 hover:-translate-y-1 hover:border-[rgba(0,212,255,0.35)] hover:shadow-[0_8px_32px_rgba(0,212,255,0.07)] h-full"
             >
               {/* Top row */}

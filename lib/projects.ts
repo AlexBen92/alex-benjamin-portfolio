@@ -17,6 +17,7 @@ export interface Project {
   color: string;
   glowColor: string;
   hasDashboard?: boolean;
+  externalLink?: string;
   // New fields for the redesigned cards
   category: string;
   categoryStyle: string;
@@ -133,30 +134,31 @@ export const projects: Project[] = [
     metric: 'Agent cycle: < 4h autonomous loop',
   },
   {
-    slug: 'order-flow-lstm-predictor',
-    title: 'ArbitrageX — Delta-Neutral Vault',
-    shortTitle: 'Delta-Neutral Vault',
-    icon: '💎',
-    category: 'SOLIDITY · DEFI',
-    categoryStyle: 'cat-sol',
+    slug: 'arbitrage-x',
+    title: 'ArbitrageX — Crypto Trading Platform',
+    shortTitle: 'ArbitrageX',
+    icon: '⚡',
+    category: 'NEXT.JS · TRADING',
+    categoryStyle: 'cat-ai',
     status: 'live',
-    statusLabel: 'SEPOLIA LIVE',
-    tags: ['Solidity', 'ERC-4626', 'Hardhat', 'RainbowKit'],
-    tagColors: ['bg-blue-500/20 text-blue-400', 'bg-pink-500/20 text-pink-400', 'bg-violet-500/20 text-violet-400', 'bg-cyan-500/20 text-cyan-400'],
-    shortDescription: 'ERC-4626 yield vault implementing delta-neutral strategies across DEX pairs. Includes a Gnosis Safe multisig admin layer, automated rebalancing, and a full-stack Next.js dashboard.',
-    context: 'Modèle de deep learning Bi-LSTM entraîné sur les données d\'order flow de profondeur L2 pour prédire les mouvements de prix à court terme sur ETH.',
+    statusLabel: 'LIVE ON VERCEL',
+    externalLink: 'https://arbitrage-x-frontend.vercel.app',
+    tags: ['Next.js', 'React', 'Trading', 'Crypto', 'Real-time'],
+    tagColors: ['bg-slate-500/20 text-slate-400', 'bg-blue-500/20 text-blue-400', 'bg-green-500/20 text-green-400', 'bg-yellow-500/20 text-yellow-400', 'bg-cyan-500/20 text-cyan-400'],
+    shortDescription: 'Plateforme de trading crypto avec dashboard en temps réel, analyse de marché et exécution d\'ordres. Interface moderne construite avec Next.js et React.',
+    context: 'Application web full-stack pour le trading de cryptoactifs avec monitoring en temps réel des prix et exécution d\'ordres. Dashboard interactif avec visualisation de données de marché.',
     steps: [
-      { number: 1, text: 'ERC-4626 vault contract implementation' },
-      { number: 2, text: 'Delta-neutral strategy engine' },
-      { number: 3, text: 'Gnosis Safe multisig integration' },
-      { number: 4, text: 'Full-stack dashboard with RainbowKit' },
+      { number: 1, text: 'Architecture Next.js avec App Router' },
+      { number: 2, text: 'Intégration API temps réel pour les prix' },
+      { number: 3, text: 'Dashboard avec graphiques interactifs' },
+      { number: 4, text: 'Système d\'exécution d\'ordres' },
     ],
-    skills: ['ERC-4626', 'Delta-neutral strategies', 'Multisig admin', 'Full-stack'],
-    color: 'from-pink-500 to-rose-600',
-    glowColor: 'shadow-pink-500/30',
+    skills: ['Next.js', 'React', 'Trading UI', 'Real-time data', 'TypeScript'],
+    color: 'from-cyan-500 to-blue-600',
+    glowColor: 'shadow-cyan-500/30',
     hasDashboard: true,
-    stackPills: ['Solidity', 'ERC-4626', 'Hardhat', 'RainbowKit'],
-    metric: 'Delta-neutral slippage: < 0.3%',
+    stackPills: ['Next.js', 'React', 'TypeScript', 'Tailwind'],
+    metric: 'Real-time updates: < 100ms',
   },
   {
     slug: 'defi-portfolio-optimizer',

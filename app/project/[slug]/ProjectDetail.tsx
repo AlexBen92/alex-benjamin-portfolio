@@ -36,7 +36,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
         >
           <div className="flex items-start gap-5">
             <span className="text-5xl">{project.icon}</span>
-            <div>
+            <div className="flex-1">
               <h1 className="text-3xl font-extrabold text-[#E8EDF5] mb-2">{project.title}</h1>
               <div className="flex flex-wrap gap-2 mt-3">
                 {project.tags.map((tag) => (
@@ -49,6 +49,19 @@ export default function ProjectDetail({ project }: { project: Project }) {
                 ))}
               </div>
             </div>
+            {project.externalLink && (
+              <a
+                href={project.externalLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="shrink-0 px-5 py-2.5 bg-[#00D4FF] text-[#080C14] font-mono text-xs font-bold tracking-[0.05em] hover:bg-[#00b8e0] transition-all duration-200 flex items-center gap-2"
+              >
+                <span>Live Site</span>
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </a>
+            )}
           </div>
         </motion.div>
 
@@ -157,7 +170,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
           </motion.section>
         )}
 
-        {project.hasDashboard && project.slug === 'order-flow-lstm-predictor' && (
+        {project.hasDashboard && project.slug === 'arbitrage-x' && (
           <motion.section
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -166,7 +179,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
           >
             <h2 className="font-mono text-xs tracking-[0.1em] text-[#4ADE80] uppercase mb-4 flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-[#22C55E] animate-pulse" />
-              LSTM Prediction Engine
+              Trading Dashboard
             </h2>
             <LSTMDashboard />
           </motion.section>
